@@ -1,0 +1,26 @@
+@import "vars";
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, $tile-size);
+  grid-gap: $tile-gap;
+  background-color: #eee;
+  color: #4e4e4e;
+}
+
+.tile {
+  line-height: $tile-size;
+  height: $tile-size;
+  background-color: #aaa;
+
+  text-align: center;
+  font-size: 40px;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: #bbb;
+  }
+
+  cursor: pointer;
+  user-select: none;
+}

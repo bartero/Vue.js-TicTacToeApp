@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>
+      Bartero's first idea app - tic tac toe!
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="TypographyCheatsheet">
+      <a href="https://www.supremo.tv/typeterms" target="_blank"><img src="https://www.supremo.tv/typeterms/press-kit/screenshots2.jpg" border="0" width="534" height="280" /></a><br /><span style="font-size: 12px;">Type Terms is the perfect tool for designers to learn the basics of typographic terminology. If you are new to typography or here to refresh your memory, then Type Terms is perfect for you. (via <a href="https://www.supremo.tv">Supremo.tv</a>).</span>
+    </div>
+    <div id="app">
+      <tic-tac-toe-board v-bind:board="board">
+
+      </tic-tac-toe-board>
+    </div>
+    <script>
+      Vue.component('tic-tac-toe-tile', {
+        props: ['tile'],
+        template: `
+          <div class="tile" v-on:click="toggle">
+            {{tile.value}}
+
+          </div>
+        `,
+        methods: {
+          toggle: function () {
+            const VALUES = ['', 'X', 'O'];
+
+            function nextValue(array, currentValue) {
+              let index = array.indexOf(currentValue);
+              if (index === -1) {
+                return undefined;
+              }
+
+              index++;
+              if(index === array.length) {
+                index = 0;
+              }
+              return array[index];
+            }
+
+            this.tile.value = nextValue(VALUES, this.tile.value);
+            console.log('this', this);
+            // console.log('currentPlayer', currentPlayer);
+          }
+        }
+      });
+      Vue.component('tic-tac-toe-board', {
+        props: ['board'],
+        template: `
+          <div class="board">
+            <tic-tac-toe-tile
+              v-for="tile in board.tiles"
+              v-bind:tile="tile"
+            >
+            </tic-tac-toe-tile>
+          </div>`
+
+      });
+
+      let app = new Vue({
+        el: "#app",
+        data: {
+          board: {
+                    tiles: [
+                      {value: 'X'}, {value: ''}, {value: 'O'},
+                      {value: 'X'}, {value: 'O'}, {value: ''},
+                      {value: 'X'}, {value: ''}, {value: ''}
+                    ]
+                  },
+          currentPlayer: 'O'
+        },
+        methods: {
+          dosth: function() {
+            console.log('do something!');
+            return 'this is something!';
+          }
+        }
+
+      });
+    </script>
+  </body>
+</html>
